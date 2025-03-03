@@ -40,9 +40,12 @@ import com.github.terrakok.modo.generateScreenKey
 import com.github.terrakok.modo.stack.LocalStackNavigation
 import com.github.terrakok.modo.stack.forward
 import kotlinx.parcelize.Parcelize
+import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 import ru.dekabrsky.consecutivepractice2025.R
 import ru.dekabrsky.consecutivepractice2025.listWithDetails.data.repository.MoviesRepository
 import ru.dekabrsky.consecutivepractice2025.listWithDetails.domain.entity.MovieShortEntity
+import ru.dekabrsky.consecutivepractice2025.listWithDetails.presentation.viewModel.ListViewModel
 import ru.dekabrsky.consecutivepractice2025.ui.components.EmptyDataBox
 import ru.dekabrsky.consecutivepractice2025.ui.theme.Spacing
 
@@ -53,20 +56,15 @@ class ListScreen(
     @Composable
     override fun Content(modifier: Modifier) {
         val navigation = LocalStackNavigation.current
-        var search by remember { mutableStateOf("") }
 
-        var items by remember {
-            mutableStateOf(MoviesRepository().getList(search))
-        }
+        val viewModel = koinViewModel<ListViewModel> { parametersOf(navigation) }
+        val state = viewModel.viewState
         
         Scaffold(
             topBar = {
                 TextField(
-                    value = search,
-                    onValueChange = {
-                        search = it
-                        items = MoviesRepository().getList(search)
-                    },
+                    value = state.query,
+                    onValueChange = { viewModel.onQueryChanged(it) },
                     label = { Text(stringResource(R.string.search)) },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -76,15 +74,15 @@ class ListScreen(
             },
             contentWindowInsets = WindowInsets(0.dp),
         ) {
-            if (items.isEmpty()) {
+            if (state.isEmpty) {
                 EmptyDataBox("По запросу нет результатов")
             }
 
             LazyColumn(Modifier.padding(it)) {
-                items(items) {
+                items(state.items) {
                     MovieItem(
                         item = it,
-                        Modifier.clickable { navigation.forward(DetailsScreen(movieId = it.id)) }
+                        Modifier.clickable { viewModel.onItemClicked(it.id) }
                     )
                 }
             }

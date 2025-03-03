@@ -27,8 +27,13 @@ import com.github.terrakok.modo.generateScreenKey
 import com.github.terrakok.modo.stack.LocalStackNavigation
 import com.github.terrakok.modo.stack.StackNavContainer
 import kotlinx.parcelize.Parcelize
+import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 import ru.dekabrsky.consecutivepractice2025.listWithDetails.data.repository.MoviesRepository
 import ru.dekabrsky.consecutivepractice2025.listWithDetails.domain.entity.MovieFullEntity
+import ru.dekabrsky.consecutivepractice2025.listWithDetails.presentation.state.MovieDetailState
+import ru.dekabrsky.consecutivepractice2025.listWithDetails.presentation.viewModel.DetailsViewModel
+import ru.dekabrsky.consecutivepractice2025.listWithDetails.presentation.viewModel.ListViewModel
 import ru.dekabrsky.consecutivepractice2025.ui.components.EmptyDataBox
 import ru.dekabrsky.consecutivepractice2025.ui.components.RatingBar
 import ru.dekabrsky.consecutivepractice2025.ui.components.SimpleAppBar
@@ -41,28 +46,32 @@ class DetailsScreen(
 ) : Screen {
     @Composable
     override fun Content(modifier: Modifier) {
-        val movie by remember {
-            mutableStateOf(MoviesRepository().getById(movieId))
-        }
+        val navigation = LocalStackNavigation.current
 
-        MovieScreenContent(movie = movie, LocalStackNavigation.current)
+        val viewModel = koinViewModel<DetailsViewModel> { parametersOf(navigation, movieId) }
+        val state = viewModel.viewState
+
+        MovieScreenContent(
+            state,
+            onBackPressed = { viewModel.back() },
+            onRatingChanged = { viewModel.onRatingChanged(it) }
+        )
     }
 }
 
 @Composable
 private fun MovieScreenContent(
-    movie: MovieFullEntity?,
-    navigation: StackNavContainer? = null
+    state: MovieDetailState,
+    onBackPressed: () -> Unit,
+    onRatingChanged: (Float) -> Unit
 ) {
     Scaffold(
-        topBar = { SimpleAppBar(movie?.title.orEmpty(), navigation) },
+        topBar = { SimpleAppBar(state.movie?.title.orEmpty(), onBackPressed) },
     ) {
-        movie ?: run {
+        val movie = state.movie ?: run {
             EmptyDataBox("По запросу нет результатов")
             return@Scaffold
         }
-
-        var rating by remember { mutableFloatStateOf(0F) }
 
         Column(
             Modifier
@@ -100,16 +109,16 @@ private fun MovieScreenContent(
             Spacer(modifier = Modifier.height(Spacing.medium))
 
             RatingBar(
-                rating = rating,
-                onRatingChanged = { rating = it },
+                rating = state.rating,
+                onRatingChanged = { onRatingChanged.invoke(it) },
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
 
             Spacer(modifier = Modifier.height(Spacing.small))
 
-            if (rating != 0f) {
+            if (state.isRatingVisible) {
                 Text(
-                    text = "Ваша оценка $rating/5",
+                    text = "Ваша оценка ${state.rating}/5",
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
             }
@@ -134,7 +143,9 @@ private fun RowScope.RatingItem(rating: MovieFullEntity.Rating) {
 @Preview
 @Composable
 private fun MovieScreenContentPreview() {
-    MoviesRepository().getById("tt1856101")?.let {
-        MovieScreenContent(it)
-    }
+    MovieScreenContent(object : MovieDetailState {
+        override val movie = MoviesRepository().getById("tt1856101")
+        override val rating = 0f
+        override val isRatingVisible = true
+    }, {}, {})
 }
