@@ -13,5 +13,10 @@ class MovieShortEntity(
 
 enum class MovieType(@StringRes val stringRes: Int) {
     MOVIE(R.string.movie),
-    SERIES(R.string.series)
+    SERIES(R.string.series),
+    OTHER(R.string.other);
+
+    companion object {
+        fun getByValue(type: String?) = entries.find { it.name.equals(type, ignoreCase = true) } ?: OTHER
+    }
 }
