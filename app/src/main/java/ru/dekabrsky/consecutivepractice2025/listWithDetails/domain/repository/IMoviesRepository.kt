@@ -4,7 +4,7 @@ import ru.dekabrsky.consecutivepractice2025.listWithDetails.domain.entity.MovieF
 import ru.dekabrsky.consecutivepractice2025.listWithDetails.domain.entity.MovieShortEntity
 
 interface IMoviesRepository {
-    fun getList(q: String = ""): List<MovieShortEntity>
+    suspend fun getList(q: String): List<MovieShortEntity>
 
-    fun getById(id: String): MovieFullEntity?
+    suspend fun getById(id: String): MovieFullEntity?
 }

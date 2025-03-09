@@ -1,12 +1,10 @@
 package ru.dekabrsky.consecutivepractice2025.listWithDetails.presentation.screens
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -22,10 +20,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,15 +32,15 @@ import com.github.terrakok.modo.Screen
 import com.github.terrakok.modo.ScreenKey
 import com.github.terrakok.modo.generateScreenKey
 import com.github.terrakok.modo.stack.LocalStackNavigation
-import com.github.terrakok.modo.stack.forward
 import kotlinx.parcelize.Parcelize
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 import ru.dekabrsky.consecutivepractice2025.R
-import ru.dekabrsky.consecutivepractice2025.listWithDetails.data.repository.MoviesRepository
+import ru.dekabrsky.consecutivepractice2025.listWithDetails.data.mock.MoviesData
 import ru.dekabrsky.consecutivepractice2025.listWithDetails.domain.entity.MovieShortEntity
 import ru.dekabrsky.consecutivepractice2025.listWithDetails.presentation.viewModel.ListViewModel
-import ru.dekabrsky.consecutivepractice2025.ui.components.EmptyDataBox
+import ru.dekabrsky.consecutivepractice2025.ui.components.FullscreenMessage
+import ru.dekabrsky.consecutivepractice2025.ui.components.FullscreenLoading
 import ru.dekabrsky.consecutivepractice2025.ui.theme.Spacing
 
 @Parcelize
@@ -74,8 +68,19 @@ class ListScreen(
             },
             contentWindowInsets = WindowInsets(0.dp),
         ) {
+            if (state.isLoading) {
+                FullscreenLoading()
+                return@Scaffold
+            }
+
+            state.error?.let {
+                FullscreenMessage(msg = it)
+                return@Scaffold
+            }
+
             if (state.isEmpty) {
-                EmptyDataBox("По запросу нет результатов")
+                FullscreenMessage("По запросу нет результатов")
+                return@Scaffold
             }
 
             LazyColumn(Modifier.padding(it)) {
@@ -128,5 +133,5 @@ fun MovieItem(
 @Preview(showBackground = true)
 @Composable
 fun MovieItemPreview() {
-    MovieItem(item = MoviesRepository().getList().first())
+    MovieItem(item = MoviesData.moviesShort.first())
 }
