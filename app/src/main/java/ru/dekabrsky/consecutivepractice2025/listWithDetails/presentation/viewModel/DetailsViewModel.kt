@@ -8,15 +8,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.terrakok.modo.stack.StackNavContainer
 import com.github.terrakok.modo.stack.back
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import ru.dekabrsky.consecutivepractice2025.core.coroutinesUtils.launchLoadingAndError
 import ru.dekabrsky.consecutivepractice2025.listWithDetails.domain.entity.MovieFullEntity
 import ru.dekabrsky.consecutivepractice2025.listWithDetails.domain.entity.MovieShortEntity
 import ru.dekabrsky.consecutivepractice2025.listWithDetails.domain.repository.IMoviesRepository
 import ru.dekabrsky.consecutivepractice2025.listWithDetails.presentation.state.MovieDetailState
-import ru.dekabrsky.consecutivepractice2025.listWithDetails.presentation.state.MoviesListState
 
 class DetailsViewModel(
     private val repository: IMoviesRepository,

@@ -10,6 +10,7 @@ interface MovieApi {
     @GET("/")
     suspend fun getMovies(
         @Query("s") search: String,
+        @Query("type") type: String?,
         @Query("page") page: Int = 1
     ) : MoviesSearchResponse
 
