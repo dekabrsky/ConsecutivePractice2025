@@ -13,12 +13,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.rounded.Search
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -56,18 +53,45 @@ class ListScreen(
         
         Scaffold(
             topBar = {
-                TextField(
-                    value = state.query,
-                    onValueChange = { viewModel.onQueryChanged(it) },
-                    label = { Text(stringResource(R.string.search)) },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(Spacing.small),
-                    leadingIcon = { Icon(Icons.Rounded.Search, null) }
-                )
+                Row(
+                    Modifier.padding(Spacing.small),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    TextField(
+                        value = state.query,
+                        onValueChange = { viewModel.onQueryChanged(it) },
+                        label = { Text(stringResource(R.string.search)) },
+                        modifier = Modifier.weight(1f),
+                        leadingIcon = { Icon(Icons.Rounded.Search, null) }
+                    )
+
+                    BadgedBox(
+                        badge = { if (state.hasBadge) Badge() },
+                        Modifier.padding(Spacing.small)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.MoreVert,
+                            contentDescription = "More",
+                            modifier = Modifier.clickable { viewModel.onFiltersClicked() }
+                        )
+                    }
+                }
+
             },
             contentWindowInsets = WindowInsets(0.dp),
         ) {
+            if (state.showTypesDialog) {
+                SelectionDialog(
+                    onDismissRequest = { viewModel.onSelectionDialogDismissed() },
+                    onConfirmation = { viewModel.onFiltersConfirmed() },
+                    title = "Тип",
+                    variants = state.typesVariants,
+                    selectedVariants = state.selectedTypes
+                ) { variant, isSelected ->
+                    viewModel.onSelectedVariantChanged(variant, isSelected)
+                }
+            }
+
             if (state.isLoading) {
                 FullscreenLoading()
                 return@Scaffold
