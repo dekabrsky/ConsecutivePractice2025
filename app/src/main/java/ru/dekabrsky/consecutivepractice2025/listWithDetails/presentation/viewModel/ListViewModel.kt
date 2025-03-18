@@ -15,7 +15,6 @@ import com.github.terrakok.modo.stack.forward
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.time.debounce
-import org.koin.compose.koinInject
 import org.koin.java.KoinJavaComponent.inject
 import ru.dekabrsky.consecutivepractice2025.core.coroutinesUtils.launchLoadingAndError
 import ru.dekabrsky.consecutivepractice2025.listWithDetails.domain.entity.MovieShortEntity
@@ -156,6 +155,12 @@ class ListViewModel(
 
     private fun updateBadge() {
         mutableState.hasBadge = filterTypes.isNotEmpty()
+    }
+
+    fun onItemDoubleClicked(item: MovieShortEntity) {
+        viewModelScope.launch {
+            repository.saveFavorite(item)
+        }
     }
 
     private inner class MutableMoviesListState: MoviesListState {

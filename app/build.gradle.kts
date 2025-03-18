@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("kotlin-parcelize")
+    id("com.google.devtools.ksp") version "1.9.20-1.0.13"
 }
 
 android {
@@ -77,5 +78,11 @@ dependencies {
     debugImplementation("com.github.chuckerteam.chucker:library:4.1.0")
     releaseImplementation("com.github.chuckerteam.chucker:library-no-op:4.1.0")
     implementation(libs.androidx.datastore.preferences)
+
+    val room_version = "2.6.1"
+    implementation("androidx.room:room-runtime:$room_version")
+    ksp("androidx.room:room-compiler:$room_version")
+    annotationProcessor("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
 
 }

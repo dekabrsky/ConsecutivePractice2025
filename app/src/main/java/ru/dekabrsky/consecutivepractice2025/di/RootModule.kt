@@ -17,6 +17,8 @@ import ru.dekabrsky.consecutivepractice2025.listWithDetails.data.repository.Movi
 import ru.dekabrsky.consecutivepractice2025.listWithDetails.domain.repository.IMoviesRepository
 import ru.dekabrsky.consecutivepractice2025.listWithDetails.presentation.viewModel.DetailsViewModel
 import ru.dekabrsky.consecutivepractice2025.listWithDetails.presentation.viewModel.ListViewModel
+import ru.dekabrsky.consecutivepractice2025.profile.presentation.model.ProfileViewState
+import ru.dekabrsky.consecutivepractice2025.profile.presentation.viewModel.ProfileViewModel
 
 val rootModule = module {
     single {
@@ -31,12 +33,13 @@ val rootModule = module {
         getDataStore(androidContext())
     }
 
-    single<IMoviesRepository> { MoviesRepository(get(), get()) }
+    single<IMoviesRepository> { MoviesRepository(get(), get(), get()) }
 
     factory { MovieResponseToEntityMapper() }
 
     viewModel { ListViewModel(get(), it.get()) }
     viewModel { DetailsViewModel(get(), it.get(), it.get()) }
+    viewModel { ProfileViewModel(get()) }
 }
 
 fun getSharedPrefs(androidApplication: Application): SharedPreferences {

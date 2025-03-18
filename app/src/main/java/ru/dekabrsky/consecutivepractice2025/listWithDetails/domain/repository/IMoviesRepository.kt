@@ -11,4 +11,6 @@ interface IMoviesRepository {
     ): List<MovieShortEntity>
 
     suspend fun getById(id: String): MovieFullEntity?
+    suspend fun saveFavorite(movie: MovieShortEntity)
+    suspend fun getFavorites(): List<MovieShortEntity>
 }

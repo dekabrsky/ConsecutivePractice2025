@@ -1,6 +1,7 @@
 package ru.dekabrsky.consecutivepractice2025.listWithDetails.presentation.screens
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -20,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -108,10 +110,16 @@ class ListScreen(
             }
 
             LazyColumn(Modifier.padding(it)) {
-                items(state.items) {
+                items(state.items) { item ->
                     MovieItem(
-                        item = it,
-                        Modifier.clickable { viewModel.onItemClicked(it.id) }
+                        item = item,
+                        Modifier
+                            .pointerInput(Unit) {
+                                detectTapGestures(
+                                    onTap = { viewModel.onItemClicked(item.id) },
+                                    onDoubleTap = { viewModel.onItemDoubleClicked(item) }
+                                )
+                            }
                     )
                 }
             }
