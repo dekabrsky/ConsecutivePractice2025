@@ -5,6 +5,7 @@ import com.github.terrakok.modo.ModoDevOptions
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import ru.dekabrsky.consecutivepractice2025.di.dbModule
 import ru.dekabrsky.consecutivepractice2025.di.networkModule
 import ru.dekabrsky.consecutivepractice2025.di.rootModule
 
@@ -16,7 +17,7 @@ class App : Application() {
         startKoin {
             androidLogger()
             androidContext(this@App)
-            modules(rootModule, networkModule)
+            modules(rootModule, networkModule, dbModule)
         }
     }
 }
