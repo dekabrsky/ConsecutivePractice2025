@@ -1,6 +1,11 @@
 package ru.dekabrsky.consecutivepractice2025.listWithDetails.presentation.screens
 
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
@@ -55,7 +60,8 @@ class DetailsScreen(
         MovieScreenContent(
             state,
             onBackPressed = { viewModel.back() },
-            onRatingChanged = { viewModel.onRatingChanged(it) }
+            onRatingChanged = { viewModel.onRatingChanged(it) },
+            onPosterClicked = { viewModel.onImageClick() }
         )
     }
 }
@@ -64,7 +70,8 @@ class DetailsScreen(
 private fun MovieScreenContent(
     state: MovieDetailState,
     onBackPressed: () -> Unit,
-    onRatingChanged: (Float) -> Unit
+    onRatingChanged: (Float) -> Unit,
+    onPosterClicked: () -> Unit,
 ) {
     Scaffold(
         topBar = { SimpleAppBar(state.movie?.title.orEmpty(), onBackPressed) },
@@ -88,7 +95,11 @@ private fun MovieScreenContent(
                 .padding(Spacing.medium)
         ) {
             Row {
-                AsyncImage(model = movie.poster, contentDescription = null)
+                AsyncImage(
+                    model = movie.poster,
+                    contentDescription = null,
+                    modifier = Modifier.clickable { onPosterClicked.invoke() }
+                )
 
                 Spacer(modifier = Modifier.width(Spacing.medium))
 
@@ -175,5 +186,5 @@ private fun MovieScreenContentPreview() {
         override val isLoading = false
         override val error = null
         override val related: List<MovieShortEntity> = MoviesData.moviesShort.take(3)
-    }, {}, {})
+    }, {}, {}, {})
 }
