@@ -25,8 +25,8 @@ import com.github.terrakok.modo.multiscreen.MultiScreen
 import com.github.terrakok.modo.multiscreen.MultiScreenNavModel
 import com.github.terrakok.modo.multiscreen.selectScreen
 import kotlinx.parcelize.Parcelize
-import ru.dekabrsky.consecutivepractice2025.listWithDetails.presentation.screens.ListScreen
-import ru.dekabrsky.consecutivepractice2025.profile.presentation.screens.ProfileScreen
+import ru.urfu.feature.movies.impl.listWithDetails.presentation.screens.ListScreen
+import ru.urfu.feature.profile.presentation.screens.ProfileScreen
 
 @Parcelize
 class MainTabScreenFinal(

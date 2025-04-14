@@ -6,7 +6,7 @@ import okhttp3.*
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import ru.dekabrsky.consecutivepractice2025.listWithDetails.data.api.MovieApi
+import ru.urfu.feature.movies.impl.listWithDetails.data.api.MovieApi
 
 
 val networkModule = module {

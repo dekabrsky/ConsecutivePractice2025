@@ -3,7 +3,7 @@ package ru.dekabrsky.consecutivepractice2025.di
 import android.content.Context
 import androidx.room.Room
 import org.koin.dsl.module
-import ru.dekabrsky.consecutivepractice2025.listWithDetails.data.db.MovieDatabase
+import ru.urfu.feature.movies.impl.listWithDetails.data.db.MovieDatabase
 
 val dbModule = module {
     single { DatabaseBuilder.getInstance(get()) }

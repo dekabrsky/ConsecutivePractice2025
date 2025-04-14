@@ -87,4 +87,6 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":uikit"))
     implementation(project(":feature:movies:api"))
+    implementation(project(":feature:movies:impl"))
+    implementation(project(":feature:profile"))
 }

@@ -11,14 +11,11 @@ import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
-import ru.dekabrsky.consecutivepractice2025.listWithDetails.data.mapper.MovieResponseToEntityMapper
-import ru.dekabrsky.consecutivepractice2025.listWithDetails.data.repository.MoviesRepository
+import ru.urfu.feature.movies.impl.listWithDetails.data.mapper.MovieResponseToEntityMapper
+import ru.urfu.feature.movies.impl.listWithDetails.data.repository.MoviesRepository
 import ru.urfu.feature.movies.api.domain.repository.IMoviesRepository
-import ru.dekabrsky.consecutivepractice2025.listWithDetails.presentation.viewModel.DetailsViewModel
-import ru.dekabrsky.consecutivepractice2025.listWithDetails.presentation.viewModel.ListViewModel
-import ru.dekabrsky.consecutivepractice2025.profile.data.ProfileRepository
-import ru.dekabrsky.consecutivepractice2025.profile.domain.repository.IProfileRepository
-import ru.dekabrsky.consecutivepractice2025.profile.presentation.viewModel.ProfileViewModel
+import ru.urfu.feature.movies.impl.listWithDetails.presentation.viewModel.DetailsViewModel
+import ru.urfu.feature.movies.impl.listWithDetails.presentation.viewModel.ListViewModel
 
 val rootModule = module {
     single {
@@ -32,15 +29,6 @@ val rootModule = module {
     single {
         getDataStore(androidContext())
     }
-
-    single<IMoviesRepository> { MoviesRepository(get(), get(), get()) }
-    single<IProfileRepository> { ProfileRepository() }
-
-    factory { MovieResponseToEntityMapper() }
-
-    viewModel { ListViewModel(get(), it.get()) }
-    viewModel { DetailsViewModel(get(), it.get(), it.get()) }
-    viewModel { ProfileViewModel(get(), get()) }
 }
 
 fun getSharedPrefs(androidApplication: Application): SharedPreferences {

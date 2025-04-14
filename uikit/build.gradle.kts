@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "ru.urfu.feature.uikit"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 24
