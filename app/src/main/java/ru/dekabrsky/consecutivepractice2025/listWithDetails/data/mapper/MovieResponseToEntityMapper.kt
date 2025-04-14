@@ -2,9 +2,9 @@ package ru.dekabrsky.consecutivepractice2025.listWithDetails.data.mapper
 
 import ru.dekabrsky.consecutivepractice2025.listWithDetails.data.model.MovieFullResponse
 import ru.dekabrsky.consecutivepractice2025.listWithDetails.data.model.MoviesSearchResponse
-import ru.dekabrsky.consecutivepractice2025.listWithDetails.domain.entity.MovieFullEntity
-import ru.dekabrsky.consecutivepractice2025.listWithDetails.domain.entity.MovieShortEntity
-import ru.dekabrsky.consecutivepractice2025.listWithDetails.domain.entity.MovieType
+import ru.urfu.feature.movies.api.domain.entity.MovieFullEntity
+import ru.urfu.feature.movies.api.domain.entity.MovieShortEntity
+import ru.urfu.feature.movies.api.domain.entity.MovieType
 
 class MovieResponseToEntityMapper {
     fun mapSearch(response: MoviesSearchResponse) =

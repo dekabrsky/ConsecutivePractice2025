@@ -6,9 +6,9 @@ import ru.dekabrsky.consecutivepractice2025.listWithDetails.data.api.MovieApi
 import ru.dekabrsky.consecutivepractice2025.listWithDetails.data.db.MovieDatabase
 import ru.dekabrsky.consecutivepractice2025.listWithDetails.data.mapper.MovieResponseToEntityMapper
 import ru.dekabrsky.consecutivepractice2025.listWithDetails.data.model.MovieDbEntity
-import ru.dekabrsky.consecutivepractice2025.listWithDetails.domain.entity.MovieShortEntity
-import ru.dekabrsky.consecutivepractice2025.listWithDetails.domain.entity.MovieType
-import ru.dekabrsky.consecutivepractice2025.listWithDetails.domain.repository.IMoviesRepository
+import ru.urfu.feature.movies.api.domain.entity.MovieShortEntity
+import ru.urfu.feature.movies.api.domain.entity.MovieType
+import ru.urfu.feature.movies.api.domain.repository.IMoviesRepository
 
 class MoviesRepository(
     private val api: MovieApi,

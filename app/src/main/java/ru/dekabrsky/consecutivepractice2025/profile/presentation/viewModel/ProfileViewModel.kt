@@ -6,8 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import ru.dekabrsky.consecutivepractice2025.listWithDetails.domain.repository.IMoviesRepository
-import ru.dekabrsky.consecutivepractice2025.profile.data.ProfileRepository
+import ru.urfu.feature.movies.api.domain.repository.IMoviesRepository
 import ru.dekabrsky.consecutivepractice2025.profile.domain.repository.IProfileRepository
 import ru.dekabrsky.consecutivepractice2025.profile.presentation.model.ProfileViewState
 

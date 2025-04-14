@@ -21,4 +21,9 @@ dependencyResolutionManagement {
 
 rootProject.name = "ConsecutivePractice2025"
 include(":app")
- 
+include(":profile")
+include(":feature:movies:api")
+include(":feature:movies:impl")
+include(":feature:profile")
+include(":uikit")
+include(":core")

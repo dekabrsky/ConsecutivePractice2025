@@ -16,10 +16,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.time.debounce
 import org.koin.java.KoinJavaComponent.inject
-import ru.dekabrsky.consecutivepractice2025.core.coroutinesUtils.launchLoadingAndError
-import ru.dekabrsky.consecutivepractice2025.listWithDetails.domain.entity.MovieShortEntity
-import ru.dekabrsky.consecutivepractice2025.listWithDetails.domain.entity.MovieType
-import ru.dekabrsky.consecutivepractice2025.listWithDetails.domain.repository.IMoviesRepository
+import ru.urfu.core.coroutinesUtils.launchLoadingAndError
+import ru.urfu.feature.movies.api.domain.entity.MovieShortEntity
+import ru.urfu.feature.movies.api.domain.entity.MovieType
+import ru.urfu.feature.movies.api.domain.repository.IMoviesRepository
 import ru.dekabrsky.consecutivepractice2025.listWithDetails.presentation.screens.DetailsScreen
 import ru.dekabrsky.consecutivepractice2025.listWithDetails.presentation.state.MoviesListState
 import java.time.Duration

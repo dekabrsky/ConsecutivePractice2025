@@ -1,7 +1,4 @@
 <resources>
     <string name="app_name">ConsecutivePractice2025</string>
-    <string name="movie">Фильм</string>
-    <string name="series">Сериал</string>
     <string name="search">Поиск</string>
-    <string name="other">Другое</string>
 </resources>

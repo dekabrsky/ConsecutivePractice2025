@@ -1,7 +1,7 @@
 package ru.dekabrsky.consecutivepractice2025.listWithDetails.presentation.state
 
-import ru.dekabrsky.consecutivepractice2025.listWithDetails.domain.entity.MovieFullEntity
-import ru.dekabrsky.consecutivepractice2025.listWithDetails.domain.entity.MovieShortEntity
+import ru.urfu.feature.movies.api.domain.entity.MovieFullEntity
+import ru.urfu.feature.movies.api.domain.entity.MovieShortEntity
 
 interface MovieDetailState {
     val movie: MovieFullEntity?

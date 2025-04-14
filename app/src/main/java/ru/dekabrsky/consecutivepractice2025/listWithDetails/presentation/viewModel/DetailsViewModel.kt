@@ -9,10 +9,10 @@ import androidx.lifecycle.viewModelScope
 import com.github.terrakok.modo.stack.StackNavContainer
 import com.github.terrakok.modo.stack.back
 import kotlinx.coroutines.launch
-import ru.dekabrsky.consecutivepractice2025.core.coroutinesUtils.launchLoadingAndError
-import ru.dekabrsky.consecutivepractice2025.listWithDetails.domain.entity.MovieFullEntity
-import ru.dekabrsky.consecutivepractice2025.listWithDetails.domain.entity.MovieShortEntity
-import ru.dekabrsky.consecutivepractice2025.listWithDetails.domain.repository.IMoviesRepository
+import ru.urfu.core.coroutinesUtils.launchLoadingAndError
+import ru.urfu.feature.movies.api.domain.entity.MovieFullEntity
+import ru.urfu.feature.movies.api.domain.entity.MovieShortEntity
+import ru.urfu.feature.movies.api.domain.repository.IMoviesRepository
 import ru.dekabrsky.consecutivepractice2025.listWithDetails.presentation.state.MovieDetailState
 
 class DetailsViewModel(

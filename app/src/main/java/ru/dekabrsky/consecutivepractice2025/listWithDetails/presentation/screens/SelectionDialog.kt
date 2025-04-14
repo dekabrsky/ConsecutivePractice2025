@@ -18,8 +18,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import ru.dekabrsky.consecutivepractice2025.listWithDetails.domain.entity.MovieType
-import ru.dekabrsky.consecutivepractice2025.ui.theme.Spacing
+import ru.urfu.feature.movies.api.domain.entity.MovieType
+import ru.urfu.feature.uikit.theme.Spacing
 
 @Preview
 @Composable

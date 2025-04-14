@@ -19,9 +19,9 @@ import com.github.terrakok.modo.ScreenKey
 import com.github.terrakok.modo.generateScreenKey
 import kotlinx.parcelize.Parcelize
 import org.koin.androidx.compose.koinViewModel
-import ru.dekabrsky.consecutivepractice2025.listWithDetails.presentation.screens.MovieItem
+import ru.urfu.feature.movies.api.presentation.component.MovieItem
 import ru.dekabrsky.consecutivepractice2025.profile.presentation.viewModel.ProfileViewModel
-import ru.dekabrsky.consecutivepractice2025.ui.theme.Spacing
+import ru.urfu.feature.uikit.theme.Spacing
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Parcelize

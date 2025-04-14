@@ -30,15 +30,12 @@ import kotlinx.parcelize.Parcelize
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 import ru.dekabrsky.consecutivepractice2025.listWithDetails.data.mock.MoviesData
-import ru.dekabrsky.consecutivepractice2025.listWithDetails.domain.entity.MovieFullEntity
-import ru.dekabrsky.consecutivepractice2025.listWithDetails.domain.entity.MovieShortEntity
+import ru.urfu.feature.movies.api.domain.entity.MovieFullEntity
+import ru.urfu.feature.movies.api.domain.entity.MovieShortEntity
 import ru.dekabrsky.consecutivepractice2025.listWithDetails.presentation.state.MovieDetailState
 import ru.dekabrsky.consecutivepractice2025.listWithDetails.presentation.viewModel.DetailsViewModel
-import ru.dekabrsky.consecutivepractice2025.ui.components.FullscreenLoading
-import ru.dekabrsky.consecutivepractice2025.ui.components.FullscreenMessage
-import ru.dekabrsky.consecutivepractice2025.ui.components.RatingBar
-import ru.dekabrsky.consecutivepractice2025.ui.components.SimpleAppBar
-import ru.dekabrsky.consecutivepractice2025.ui.theme.Spacing
+import ru.urfu.feature.movies.api.presentation.component.MovieItem
+import ru.urfu.feature.uikit.theme.Spacing
 
 @Parcelize
 class DetailsScreen(
@@ -67,15 +64,20 @@ private fun MovieScreenContent(
     onRatingChanged: (Float) -> Unit
 ) {
     Scaffold(
-        topBar = { SimpleAppBar(state.movie?.title.orEmpty(), onBackPressed) },
+        topBar = {
+            ru.urfu.feature.uikit.components.SimpleAppBar(
+                state.movie?.title.orEmpty(),
+                onBackPressed
+            )
+        },
     ) {
         if (state.isLoading) {
-            FullscreenLoading()
+            ru.urfu.feature.uikit.components.FullscreenLoading()
             return@Scaffold
         }
 
         state.error?.let {
-            FullscreenMessage(msg = it)
+            ru.urfu.feature.uikit.components.FullscreenMessage(msg = it)
             return@Scaffold
         }
 
@@ -133,7 +135,7 @@ private fun MovieScreenContent(
 
             Spacer(modifier = Modifier.height(Spacing.medium))
 
-            RatingBar(
+            ru.urfu.feature.uikit.components.RatingBar(
                 rating = state.rating,
                 onRatingChanged = { onRatingChanged.invoke(it) },
                 modifier = Modifier.align(Alignment.CenterHorizontally)
